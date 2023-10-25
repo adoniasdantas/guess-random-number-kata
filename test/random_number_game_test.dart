@@ -22,6 +22,19 @@ void main() {
         expect(sut.state, GameState.playing);
       });
 
+      test('Should decrease the number of attempts after every attempt', () {
+        final sut = RandomNumberGame().copy(number: 9);
+
+        sut.guessNumber(3);
+        expect(sut.remainingAttempts, 2);
+        sut.guessNumber(5);
+        expect(sut.remainingAttempts, 1);
+        sut.guessNumber(7);
+
+        expect(sut.remainingAttempts, 0);
+        expect(sut.state, GameState.loss);
+      });
+
       test('Should change numberPosition to - if the guess is bigger than the correct number', () {
         final sut = RandomNumberGame().copy(number: 5);
 
